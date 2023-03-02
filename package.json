@@ -1,0 +1,19 @@
+{
+  "name": "template-engine",
+  "version": "0.0.1",
+  "description": "html template engine",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frank-styding/TemplateEngine.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Frank-styding/TemplateEngine/issues"
+  },
+  "homepage": "https://github.com/Frank-styding/TemplateEngine#readme"
+}
