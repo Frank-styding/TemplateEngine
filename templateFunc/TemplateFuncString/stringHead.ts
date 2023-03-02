@@ -1,4 +1,3 @@
-import { HTMLTemplate } from "../../core";
 import { templateFunc } from "../templateFunc";
 import { StringTypes } from "../types/IArgA";
 import { IArgB } from "../types/IArgB";

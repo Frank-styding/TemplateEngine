@@ -1,24 +1,37 @@
+import { HTMLTemplate } from "../HTMLTemplate";
 import { Ref } from "../Ref";
+import { State } from "../State";
 import { Template } from "../Template";
+import { DinamicAndStatic } from "./DinamicAndStatic";
 import { ITemplateStruct } from "./ITemplateStruct";
 
 export interface IUpdateTemplateStruct {
-  className?: string;
-  classList?: string[];
-  id?: string;
-  style?: Record<string, string>;
-  attributes?: Record<string, any>;
-  childs?: (
-    | Template
-    | ITemplateStruct
-    | HTMLElement
-    | Text
-    | `textNode:${string}`
-    | `template:${string}`
-  )[];
+  className?: DinamicAndStatic<string>;
+  classList?: DinamicAndStatic<string[]>;
+  id?: DinamicAndStatic<string>;
+
+  style?:
+    | Record<string, DinamicAndStatic<string>>
+    | State<Record<string, string>>;
+
+  attributes?:
+    | Record<string, DinamicAndStatic<string>>
+    | State<Record<string, string>>;
+
+  childs?: DinamicAndStatic<
+    (
+      | Template
+      | ITemplateStruct
+      | HTMLElement
+      | Text
+      | `textNode:${string}`
+      | `template:${string}`
+    )[]
+  >;
+  innerHTML?: DinamicAndStatic<string>;
+  show?: DinamicAndStatic<boolean>;
   events?: Record<string, any>;
-  ref?: ((element: Template) => void) | Ref<Template>;
-  innerHTML?: string;
-  HTMLElement?: HTMLElement;
-  show?: boolean;
+  ref?: ((element: Template) => void) | Ref<HTMLTemplate>;
+  watchStates?: State<any>[];
+  //HTMLElement?: HTMLElement;
 }

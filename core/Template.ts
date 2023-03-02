@@ -1,5 +1,7 @@
 import { generateUUID } from "../utils/genereUUID";
 import { BaseClass } from "./BaseClass";
+import { State } from "./State";
+import { DinamicAndStatic } from "./types/DinamicAndStatic";
 //import { ITemplateStruct } from "../types/ITemplateStruct";
 /* import { TextTemplate } from "./TextTemplate";
 import { HTMLTemplate } from "./HTMLTemplate"; */
@@ -21,13 +23,17 @@ export class Template<T extends Node = Node> implements BaseClass {
 
   show: boolean;
 
+  existsState: Record<string, boolean> = {};
+
+  updateCallbacks: ((this: { prev: any }) => void)[] = [];
+
   constructor() {
     this.uuid = generateUUID();
     this.childs = [];
     this.show = true;
   }
 
-  setShowProperty(show: boolean) {
+  setShowProperty(show: DinamicAndStatic<boolean>) {
     if (this.parent == undefined) return;
     this.show = show;
 

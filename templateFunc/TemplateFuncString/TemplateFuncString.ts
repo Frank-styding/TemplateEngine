@@ -8,7 +8,7 @@ import { stringQuery } from "./stringQuery";
 import { stringQueryAll } from "./stringQueryAll";
 import { stringTextNode } from "./stringTextNode";
 import { stringTag } from "./stringTag";
-import { HTMLTemplate, Template, TextTemplate } from "../../core";
+import { HTMLTemplate, TextTemplate } from "../../core";
 
 export function templateFuncString(
   result: any,
