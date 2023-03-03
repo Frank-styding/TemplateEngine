@@ -1,4 +1,4 @@
-import { HTMLTemplate, ITemplateStruct } from "../core";
+import { HTMLTemplate, IUpdateTemplateStruct } from "../core";
 import { IArgB } from "./types/IArgB";
 import { addChilds } from "./utils/addChilds";
 
@@ -19,7 +19,7 @@ export function templateFuncTemplate(
   if (Array.isArray(b)) {
     addChilds(template, b);
   } else {
-    template.applyStruct(b as ITemplateStruct);
+    template.applyStruct(b as IUpdateTemplateStruct);
   }
 
   return template;

@@ -1,4 +1,4 @@
-import { ITemplateStruct, Template } from "../core";
+import { HTMLTemplate, ITemplateStruct, Template } from "../core";
 
 export function templateFuncRef(result: any, a: any): any {
   if (Array.isArray(result)) return null;
@@ -6,7 +6,7 @@ export function templateFuncRef(result: any, a: any): any {
   if (struct.ref) {
     if (typeof struct.ref == "object") {
       if (struct.ref._name == "Ref") {
-        struct.ref._template = result.data as Template;
+        struct.ref._template = result.data as HTMLTemplate;
       }
     } else {
       struct.ref(result.data as Template);

@@ -9,8 +9,8 @@ export function stringTag(selector: string, a: string, b?: IArgB<StringTypes>) {
   const template = templateFunc(element, b);
 
   const { id, classNames } = setAttributesFromString(attributes);
-  if (classNames) template.addClassList(classNames);
-  if (id) template.addClassName(id);
+  if (classNames) template.classList.addClassList(classNames);
+  if (id) template.id.setId(id);
 
   return template;
 }

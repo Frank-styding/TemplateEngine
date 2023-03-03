@@ -1,6 +1,7 @@
-export { Template } from "./Template";
-export { HTMLTemplate } from "./HTMLTemplate";
-export { TextTemplate } from "./TextTemplate";
+export { Template } from "./Template/Template";
+export { HTMLTemplate } from "./Template/HTMLTemplate/HTMLTemplate";
+
+export { TextTemplate } from "./Template/TextTemplate";
 export { Ref } from "./Ref";
 export { State } from "./State";
 

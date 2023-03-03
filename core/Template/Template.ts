@@ -1,7 +1,8 @@
-import { generateUUID } from "../utils/genereUUID";
-import { BaseClass } from "./BaseClass";
-import { State } from "./State";
-import { DinamicAndStatic } from "./types/DinamicAndStatic";
+import { generateUUID } from "../../utils/genereUUID";
+import { BaseClass } from "../BaseClass";
+import { State } from "../State";
+import { DynamicStaticState } from "../types/DynamicStaticState";
+import { UpdateFunction } from "./UpdateFunction";
 //import { ITemplateStruct } from "../types/ITemplateStruct";
 /* import { TextTemplate } from "./TextTemplate";
 import { HTMLTemplate } from "./HTMLTemplate"; */
@@ -25,7 +26,7 @@ export class Template<T extends Node = Node> implements BaseClass {
 
   existsState: Record<string, boolean> = {};
 
-  updateCallbacks: ((this: { prev: any }) => void)[] = [];
+  updateFuncs: UpdateFunction<any>[] = [];
 
   constructor() {
     this.uuid = generateUUID();
@@ -33,8 +34,9 @@ export class Template<T extends Node = Node> implements BaseClass {
     this.show = true;
   }
 
-  setShowProperty(show: DinamicAndStatic<boolean>) {
+  setShow(show: boolean) {
     if (this.parent == undefined) return;
+
     this.show = show;
 
     if (show) {
@@ -43,6 +45,12 @@ export class Template<T extends Node = Node> implements BaseClass {
       );
 
       const idx = childs.indexOf(this);
+
+      if (childs.length == 1) {
+        this.parent.element.appendChild(this.element);
+        return;
+      }
+
       if (idx == 0) {
         this.parent.element.insertBefore(this.element, childs[1].element);
         return;
@@ -57,5 +65,31 @@ export class Template<T extends Node = Node> implements BaseClass {
     }
 
     this.parent.element.removeChild(this.element);
+  }
+
+  setShowDynamic(show: DynamicStaticState<boolean>) {
+    if (show instanceof State) {
+      this.setShow(show.value);
+
+      show.callback = (value) => {
+        this.setShow(value);
+      };
+
+      return;
+    }
+
+    if (typeof show == "function") {
+      const func = new UpdateFunction<boolean>((prev) => {
+        const value = show();
+        this.setShow(value);
+        return value;
+      });
+      func.call();
+
+      this.updateFuncs.push(func);
+      return;
+    }
+
+    this.setShow(show);
   }
 }

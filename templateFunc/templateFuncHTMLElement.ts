@@ -9,11 +9,7 @@ export function templateFuncHTMLElement(
 ) {
   if (result != null || !(a instanceof HTMLElement)) return result;
 
-  const template = createTemplate(a);
-
-  if (b != undefined) {
-    return templateFunc(template, b);
-  }
+  const template = createTemplate(a, b);
 
   return template;
 }

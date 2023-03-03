@@ -1,5 +1,5 @@
 import { BaseClass } from "./BaseClass";
-import { Template } from "./Template";
+import { Template } from "./Template/Template";
 import { generateUUID } from "../utils/genereUUID";
 
 export class Ref<T extends Template> implements BaseClass {

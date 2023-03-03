@@ -1,25 +1,28 @@
-import { HTMLTemplate } from "../HTMLTemplate";
+import { HTMLTemplate } from "../Template/HTMLTemplate/HTMLTemplate";
 import { Ref } from "../Ref";
 import { State } from "../State";
-import { Template } from "../Template";
-import { DinamicAndStatic } from "./DinamicAndStatic";
+import { Template } from "../Template/Template";
+import { DynamicStaticState } from "./DynamicStaticState";
 import { ITemplateChildStruct } from "./ITemplateChildStruct";
+import { DynamicStatic } from "./DynamicStatic";
 
 export interface ITemplateStruct {
   tag: string;
-  className?: DinamicAndStatic<string>;
-  classList?: DinamicAndStatic<string[]>;
-  id?: DinamicAndStatic<string>;
+  className?: DynamicStaticState<string>;
+  classList?: DynamicStaticState<string[]>;
+  id?: DynamicStaticState<string>;
   style?:
-    | Record<string, DinamicAndStatic<string>>
+    | Record<string, DynamicStaticState<string>>
+    | (() => Record<string, string>)
     | State<Record<string, string>>;
   attributes?:
-    | Record<string, DinamicAndStatic<string>>
+    | Record<string, DynamicStaticState<string>>
+    | (() => Record<string, string>)
     | State<Record<string, string>>;
-  childs?: DinamicAndStatic<ITemplateChildStruct[]>;
+  childs?: DynamicStatic<ITemplateChildStruct[]>;
   events?: Record<string, any>;
   ref?: ((element: Template) => void) | Ref<HTMLTemplate>;
-  innerHTML?: DinamicAndStatic<string>;
-  show?: DinamicAndStatic<boolean>;
+  innerHTML?: DynamicStatic<string>;
+  show?: DynamicStaticState<boolean>;
   watchStates?: State<any>[];
 }

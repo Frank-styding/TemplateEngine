@@ -1,4 +1,4 @@
-import { Template } from "../Template";
+import { Template } from "../Template/Template";
 import { ITemplateStruct } from "./ITemplateStruct";
 
 export type ITemplateChildStruct =

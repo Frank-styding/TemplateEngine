@@ -9,5 +9,7 @@ export function addChilds(
   b: ITemplateChildStruct[] | IUpdateTemplateStruct
 ) {
   if (Array.isArray(template) || !Array.isArray(b)) return;
-  b.forEach((child) => template.addChild(child));
+  b.forEach((child) => {
+    template.addChild(child);
+  });
 }

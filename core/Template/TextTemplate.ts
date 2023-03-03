@@ -1,5 +1,5 @@
-import { generateUUID } from "../utils/genereUUID";
-import { BaseClass } from "./BaseClass";
+import { generateUUID } from "../../utils/genereUUID";
+import { BaseClass } from "../BaseClass";
 import { Template } from "./Template";
 
 export class TextTemplate extends Template implements BaseClass {

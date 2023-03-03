@@ -9,7 +9,7 @@ import {
 type TemplateArgA =
   | Template
   | HTMLElement
-  | HTMLElementTagNameMap
+  | keyof HTMLElementTagNameMap
   | "$body"
   | "$head"
   | `q:${string}`
