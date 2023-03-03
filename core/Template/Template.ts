@@ -2,6 +2,7 @@ import { generateUUID } from "../../utils/genereUUID";
 import { BaseClass } from "../BaseClass";
 import { State } from "../State";
 import { DynamicStaticState } from "../types/DynamicStaticState";
+import { IUpdateTemplateStruct } from "../types/IUpdateTemplateStruct";
 import { UpdateFunction } from "./UpdateFunction";
 //import { ITemplateStruct } from "../types/ITemplateStruct";
 /* import { TextTemplate } from "./TextTemplate";
@@ -92,4 +93,11 @@ export class Template<T extends Node = Node> implements BaseClass {
 
     this.setShow(show);
   }
+
+  elementInDom() {
+    this._elemenInDom();
+    this.childs.forEach((child) => child.elementInDom());
+  }
+
+  protected _elemenInDom() {}
 }

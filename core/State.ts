@@ -13,10 +13,18 @@ export class State<T> implements BaseClass {
     return this._value;
   }
 
+  equal(a: any, b: any) {
+    if (typeof a === "object" && typeof b === "object") {
+      return JSON.stringify(a) === JSON.stringify(b);
+    }
+    return a == b;
+  }
+
   set(value: T) {
-    if (value == this._value) {
+    if (this.equal(this._value, value)) {
       return;
     }
+
     const prev = this._value;
 
     this._value = value;

@@ -1,5 +1,6 @@
 export { Template } from "./Template/Template";
 export { HTMLTemplate } from "./Template/HTMLTemplate/HTMLTemplate";
+export { render } from "./Render";
 
 export { TextTemplate } from "./Template/TextTemplate";
 export { Ref } from "./Ref";

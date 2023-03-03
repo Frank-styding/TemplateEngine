@@ -27,7 +27,7 @@ export class HTMLTemplate<T extends HTMLElement = HTMLElement>
 
   constructor(
     public element: T,
-    private info?: IUpdateTemplateStruct,
+    private initStruct?: IUpdateTemplateStruct,
     parent?: HTMLTemplate
   ) {
     super();
@@ -42,9 +42,8 @@ export class HTMLTemplate<T extends HTMLElement = HTMLElement>
     this.tag = element.tagName;
 
     this.id.setId(element.id);
-
-    if (info) {
-      this.applyStruct(info);
+    if (initStruct) {
+      this.applyStruct(initStruct);
     }
   }
 
@@ -67,30 +66,33 @@ export class HTMLTemplate<T extends HTMLElement = HTMLElement>
     return this.element.innerHTML;
   }
 
-  applyStruct(struct: IUpdateTemplateStruct) {
-    if (struct.ref) {
-      if (typeof struct.ref == "object") {
-        if (struct.ref._name == "Ref") {
-          struct.ref._template = this;
+  applyStruct(initStruct?: IUpdateTemplateStruct) {
+    this.initStruct = { ...this.initStruct, ...initStruct };
+    if (!initStruct) return;
+    if (initStruct.ref) {
+      if (typeof initStruct.ref == "object") {
+        if (initStruct.ref._name == "Ref") {
+          initStruct.ref._template = this;
         }
       } else {
-        struct.ref(this);
+        initStruct.ref(this);
       }
     }
 
-    if (struct.id) this.id.setDynamicID(struct.id);
-    if (struct.style) this.style.setDynamicStyles(struct.style);
-    if (struct.attributes)
-      this.attributes.setAttributesDynamic(struct.attributes);
+    if (initStruct.id) this.id.setDynamicID(initStruct.id);
+    if (initStruct.style) this.style.setDynamicStyles(initStruct.style);
+    if (initStruct.attributes)
+      this.attributes.setAttributesDynamic(initStruct.attributes);
 
-    if (struct.events) this.events.addEvents(struct.events);
-    if (struct.className) this.classList.addClassNameDynamic(struct.className);
-    if (struct.classList) this.classList.addClassListDynamic(struct.classList);
-    if (struct.innerHTML) this.setInnerHTML(struct.innerHTML);
+    if (initStruct.events) this.events.addEvents(initStruct.events);
+    if (initStruct.className)
+      this.classList.addClassNameDynamic(initStruct.className);
+    if (initStruct.classList)
+      this.classList.addClassListDynamic(initStruct.classList);
+    if (initStruct.innerHTML) this.setInnerHTML(initStruct.innerHTML);
 
-    if (struct.childs) this.addChildsDynamic(struct.childs);
-    if (struct.show) this.setShowDynamic(struct.show);
-    if (struct.watchStates) this.watchStates(struct.watchStates);
+    if (initStruct.childs) this.addChildsDynamic(initStruct.childs);
+    if (initStruct.watchStates) this.watchStates(initStruct.watchStates);
   }
 
   watchStates(states: State<any>[]) {
@@ -138,5 +140,8 @@ export class HTMLTemplate<T extends HTMLElement = HTMLElement>
     createChild(this, child);
   }
 
-  update() {}
+  protected _elemenInDom(): void {
+    if (this.initStruct == undefined) return;
+    if (this.initStruct.show) this.setShowDynamic(this.initStruct.show);
+  }
 }

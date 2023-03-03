@@ -19,7 +19,7 @@ export function templateFuncTemplate(
   if (Array.isArray(b)) {
     addChilds(template, b);
   } else {
-    template.applyStruct(b as IUpdateTemplateStruct);
+    template.applyStruct(b);
   }
 
   return template;
