@@ -1,10 +1,6 @@
 import { Template, ITemplateStruct } from "../../core";
 
-type ObjectsTypes =
-  | Template
-  | HTMLElement
-  | ITemplateStruct
-  | keyof HTMLElementTagNameMap;
+type ObjectsTypes = Template | HTMLElement | ITemplateStruct;
 
 export type StringTypes =
   | `q:${string}`
@@ -13,7 +9,12 @@ export type StringTypes =
   | `#${string}`
   | "$head"
   | "$body"
-  | `${keyof HTMLElementTagNameMap}||${string}` //atributes
+  | keyof HTMLElementTagNameMap
+  | `${keyof HTMLElementTagNameMap}||${string}||`
   | `textNode:${string}`;
 
-export type IArgA = ObjectsTypes | StringTypes;
+export type EventString =
+  | `${keyof HTMLElementTagNameMap}||${string}||${`event`}:${`click`}`
+  | `${keyof HTMLElementTagNameMap}||event:${string}`;
+
+export type IArgA = ObjectsTypes | StringTypes | EventString;

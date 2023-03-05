@@ -17,7 +17,7 @@ export function templateFuncString(
 ) {
   if (result != null || typeof a != "string") return result;
 
-  const selector = a.replace(/(::|\|\|).+/, "");
+  const selector = a.replace(/(\|\|).+/, "");
 
   let res: HTMLTemplate | TextTemplate | HTMLTemplate[] | null = null;
 

@@ -39,7 +39,7 @@ export class HTMLTemplate<T extends HTMLElement = HTMLElement>
     this.parent = parent;
 
     this.classList.addClassList(Array.from(element.classList));
-    this.tag = element.tagName;
+    this.tag = element.tagName.toLowerCase();
 
     this.id.setId(element.id);
     if (initStruct) {
