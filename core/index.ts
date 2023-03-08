@@ -1,11 +1,4 @@
-export { Template } from "./Template/Template";
-export { HTMLTemplate } from "./Template/HTMLTemplate/HTMLTemplate";
+export { Template } from "./Component/Template/Template";
+export { Component } from "./Component/Component";
+export { State } from "./Component/State";
 export { render } from "./Render";
-
-export { TextTemplate } from "./Template/TextTemplate";
-export { Ref } from "./Ref";
-export { State } from "./State";
-
-export { ITemplateStruct } from "./types/ITemplateStruct";
-export { ITemplateChildStruct } from "./types/ITemplateChildStruct";
-export { IUpdateTemplateStruct } from "./types/IUpdateTemplateStruct";

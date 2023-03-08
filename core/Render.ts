@@ -1,9 +1,10 @@
-import { Template } from "./Template/Template";
+import { Component } from "./Component/Component";
 
-export function render(template: Template | Template[]) {
-  if (Array.isArray(template)) {
-    template.forEach((template) => template.elementInDom());
+export function render(components: Component | Component[]) {
+  if (Array.isArray(components)) {
+    components.forEach((components) => components.elementInDom());
     return;
   }
-  template.elementInDom();
+
+  components.elementInDom();
 }
