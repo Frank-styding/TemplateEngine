@@ -1,10 +1,10 @@
-import { IChildStruct } from "../core/Template/types/IChildStruct";
-import { IDynamicStruct } from "../core/Template/types/IDynamicStruct";
-import { IEventFunc } from "../core/Template/types/IEventFunc";
-import { IEventMap } from "../core/Template/types/IEventMap";
-import { ITagMap } from "./types/ITagMap";
-import { Template } from "../core/Template/Template";
-import { SelectorOne } from "./types/IArgAString";
+import { IChildStruct } from "../../core/Template/types/IChildStruct";
+import { IDynamicStruct } from "../../core/Template/types/IDynamicStruct";
+import { IEventFunc } from "../../core/Template/types/IEventFunc";
+import { IEventMap } from "../../core/Template/types/IEventMap";
+import { ITagMap } from "./ITagMap";
+import { Template } from "../../core/Template/Template";
+import { SelectorOne } from "./IArgAString";
 
 export type IArgB<T> = T extends
   | ITagMap

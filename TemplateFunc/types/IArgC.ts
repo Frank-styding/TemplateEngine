@@ -1,6 +1,6 @@
-import { IChildStruct } from "../core/Template/types/IChildStruct";
-import { ITagMap } from "./types/ITagMap";
-import { SelectorOne } from "./types/IArgAString";
+import { IChildStruct } from "../../core/Template/types/IChildStruct";
+import { ITagMap } from "./ITagMap";
+import { SelectorOne } from "./IArgAString";
 
 export type IArgC<T> = T extends
   | `${SelectorOne | ITagMap} (${string}) [${string}]`
