@@ -1,11 +1,11 @@
 import { Template } from "../Template";
-import { ITemplateChildStruct } from "../types/ITemplateChildStruct";
+import { IChildStruct } from "../types/IChildStruct";
 import { addChildHTML } from "./htmlChild";
 import { addChildString } from "./stringChild";
 import { addChildTemplateStruct } from "./structChild";
 import { addChildTemplate } from "./templateChild";
 
-export function createChild(_template: Template, child: ITemplateChildStruct) {
+export function addChild(_template: Template, child: IChildStruct) {
   let res: any = null;
   res = addChildHTML(_template, res, child);
   res = addChildString(_template, res, child);

@@ -29,13 +29,13 @@ export class Style extends BaseClass<Record<string, string>> {
     const target = this;
     dynamicObject(this.template, data, {
       deleteKey(key, value) {
-        target.setStyle(key, value);
+        target.removeStyle(key);
       },
       deleteValue(value) {
         target.removeStyles(value);
       },
       setKey(key, value) {
-        target.removeStyle(key);
+        target.setStyle(key, value);
       },
       setValue(value) {
         target.setStyles(value);

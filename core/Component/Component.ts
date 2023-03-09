@@ -1,19 +1,8 @@
-import { Template } from "./Template/Template";
-
+import { Template } from "../Template/Template";
+import { generateUUID } from "../utils/genereUUID";
 export class Component {
-  id: string;
-  childs: Component[] = [];
-  constructor(public name: string, public template: Template) {}
-
-  addChild(component: Component) {
-    this.template.addChild(component.template);
-    this.childs.push(component);
-  }
-
-  elementInDom() {
-    this.template.elemenInDom();
-    this.childs.forEach((child) => {
-      child.elementInDom();
-    });
+  public readonly uuid: string;
+  constructor(public readonly name: string, private template: Template) {
+    this.uuid = generateUUID();
   }
 }

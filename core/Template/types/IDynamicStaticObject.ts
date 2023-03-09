@@ -1,6 +1,7 @@
 import { State } from "../../State";
 
 export type IDynamicStaticObject<T> =
+  | T
   | State<T>
   | (() => T)
   | {

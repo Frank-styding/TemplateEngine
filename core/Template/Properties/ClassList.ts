@@ -50,7 +50,7 @@ export class ClassList extends BaseClass<Set<string>> {
     const target = this;
     dynamicValue(data, this.template, {
       setValue(value) {
-        target.removeClassList(value);
+        target.addClassList(value);
       },
       deleteValue(value) {
         target.removeClassList(value);

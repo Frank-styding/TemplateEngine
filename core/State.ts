@@ -10,6 +10,7 @@ export class State<T> implements BaseClass {
 
   constructor(private _value: T) {
     this.uuid = generateUUID();
+    this.updateCallbacks = [];
   }
 
   onUpdate(callback: (value: T, preValue: T) => void) {

@@ -28,6 +28,7 @@ export class Attributes extends BaseClass<Record<string, string>> {
   }
 
   dynamicAttributes(data: IDynamicStaticObject<Record<string, string>>) {
+    console.log(data);
     const target = this;
     dynamicObject(this.template, data, {
       setKey(key, value) {

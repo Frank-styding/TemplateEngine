@@ -5,21 +5,21 @@ import { Style } from "./Properties/Style";
 import { Attributes } from "./Properties/Attributes";
 import { Events } from "./Properties/Events";
 import { ID } from "./Properties/Id";
-import { createChild } from "./addChild/createChild";
-import { ITemplateChildStruct } from "./types/ITemplateChildStruct";
+import { addChild } from "./addChild/addChild";
+import { IChildStruct } from "./types/IChildStruct";
 import { UpdateFunction } from "./UpdateFunction";
 import { IDynamicStatic } from "./types/IDynamicStatic";
 import { dynamicValue } from "./util/dynamicValue";
-import { IDynamicTemplateStruct } from "./types/IDynamicTemplateStruct";
 import { State } from "../State";
+import { Show } from "./Properties/Show";
+import { IDynamicUpdateStruct } from "./types/IDynamicUpdateStruct";
 
 export class Template<
   T extends HTMLElement | SVGElement = HTMLElement | SVGElement
 > implements BaseClass
 {
+  protected readonly uuid: string;
   private updateFuncs: UpdateFunction[] = [];
-
-  protected uuid: string;
 
   tag: string;
   element: T;
@@ -32,10 +32,12 @@ export class Template<
   attributes: Attributes;
   events: Events;
   id: ID;
-
+  show: Show;
   //
 
   _name = "Template";
+
+  struct?: IDynamicUpdateStruct;
 
   constructor(element: T) {
     this.uuid = generateUUID();
@@ -48,13 +50,15 @@ export class Template<
     this.attributes = new Attributes(this);
     this.events = new Events(this);
     this.id = new ID(this);
+    this.show = new Show(this);
 
     // get attributes from element
     this.tag = element.tagName.toLowerCase();
     this.id.setId(element.id);
   }
 
-  applyStruct(struct: IDynamicTemplateStruct) {
+  applyStruct(struct: IDynamicUpdateStruct) {
+    this.struct = struct;
     if (struct.id) {
       this.id.dynamicId(struct.id);
     }
@@ -82,6 +86,14 @@ export class Template<
     if (struct.watchSates) {
       this.initWatchStates(struct.watchSates);
     }
+
+    if (struct.classList) {
+      this.classList.dynamicClassList(struct.classList);
+    }
+
+    if (struct.className) {
+      this.classList.dynamicClassName(struct.className);
+    }
   }
 
   //innerHTML
@@ -101,7 +113,18 @@ export class Template<
 
   //Childs
 
-  dynamicChilds(data: IDynamicStatic<ITemplateChildStruct[]>) {
+  addChild(child: IChildStruct) {
+    addChild(this, child);
+  }
+
+  deleteChilds() {
+    while (this.element.firstChild) {
+      this.element.removeChild(this.element.firstChild);
+    }
+    this.childs = [];
+  }
+
+  dynamicChilds(data: IDynamicStatic<IChildStruct[]>) {
     const target = this;
     dynamicValue(data, this, {
       deleteValue(value) {
@@ -115,18 +138,7 @@ export class Template<
     });
   }
 
-  addChild(child: ITemplateChildStruct) {
-    return createChild(this, child);
-  }
-
-  deleteChilds() {
-    while (this.element.firstChild) {
-      this.element.removeChild(this.element.firstChild);
-    }
-    this.childs = [];
-  }
-
-  //
+  //state
   initWatchStates(states: State<any>[]) {
     states.forEach((state) => {
       state.onUpdate(() => {
@@ -135,10 +147,18 @@ export class Template<
     });
   }
 
+  //update functions
   addUpdateFunc(func: UpdateFunction) {
     this.updateFuncs.push(func);
   }
-  //
 
-  elemenInDom() {}
+  //event on element is in dom
+  _elemenInDom() {
+    if (this.struct) {
+      if (this.struct.show != undefined) {
+        this.show.dynamicShow(this.struct.show);
+      }
+    }
+    this.childs.forEach((child) => child._elemenInDom());
+  }
 }

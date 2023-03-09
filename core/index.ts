@@ -1,4 +1,2 @@
-export { Template } from "./Component/Template/Template";
-export { Component } from "./Component/Component";
-export { State } from "./Component/State";
-export { render } from "./Render";
+export { State } from "./State";
+export { Template } from "./Template/Template";
