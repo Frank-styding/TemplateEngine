@@ -16,5 +16,6 @@ export function funcStruct(
   const element = document.createElement(argA.tag);
   const template = new Template(element);
   template.applyStruct(argA);
-  return argA;
+
+  return template;
 }
