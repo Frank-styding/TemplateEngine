@@ -22,6 +22,7 @@ export class Style extends BaseClass<Record<string, string>> {
 
     this.data[name] = value;
     this.template.element.style.setProperty(name, value);
+
     return this;
   }
 
