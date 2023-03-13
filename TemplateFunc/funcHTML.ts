@@ -13,5 +13,9 @@ export function funcHTML(
   if (res != null) return res;
   if (!(argA instanceof HTMLElement)) return res;
 
+  if (Template.templates.has(argA)) {
+    return TemplateFunction(Template.templates.get(argA), argB);
+  }
+
   return TemplateFunction(new Template(argA), argB);
 }

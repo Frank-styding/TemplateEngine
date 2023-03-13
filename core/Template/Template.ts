@@ -13,12 +13,14 @@ import { dynamicValue } from "./util/dynamicValue";
 import { State } from "../State";
 import { Show } from "./Properties/Show";
 import { IDynamicUpdateStruct } from "./types/IDynamicUpdateStruct";
+import { Component } from "../Component/Component";
 
 export class Template<
   T extends HTMLElement | SVGElement = HTMLElement | SVGElement
 > implements BaseClass
 {
-  protected readonly uuid: string;
+  static templates: Map<HTMLElement | SVGElement, Template> = new Map();
+  readonly uuid: string;
   private updateFuncs: UpdateFunction[] = [];
 
   tag: string;
@@ -55,6 +57,8 @@ export class Template<
     // get attributes from element
     this.tag = element.tagName.toLowerCase();
     this.id.setId(element.id);
+
+    Template.templates.set(element, this);
   }
 
   applyStruct(struct: IDynamicUpdateStruct) {
@@ -111,9 +115,17 @@ export class Template<
     });
   }
 
+  getInnerHTML() {
+    return this.element.innerHTML;
+  }
+
   //Childs
 
-  addChild(child: IChildStruct) {
+  addChild(child: IChildStruct | Component) {
+    if (child instanceof Component) {
+      addChild(this, child.template);
+      return;
+    }
     addChild(this, child);
   }
 

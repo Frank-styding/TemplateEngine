@@ -24,10 +24,13 @@ export const dynamicValue = (
   }
 
   if (data instanceof State) {
-    setValue(data.get());
+    setValue(data.getString());
 
     data.onUpdate((nValue, prev) => {
       if (prev) deleteValue(prev);
+      if (data.prefix) {
+        setValue(data.prefix(nValue));
+      }
       setValue(nValue);
     });
 

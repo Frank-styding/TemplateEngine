@@ -1,2 +1,2 @@
 export { Template, State } from "./core";
-export { TemplateFunction } from "./TemplateFunc/TemplateFunc";
+export { TemplateFunction as t } from "./TemplateFunc/TemplateFunc";

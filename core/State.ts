@@ -2,9 +2,10 @@ import { generateUUID } from "./utils/genereUUID";
 import { BaseClass } from "./utils/BaseClass";
 import { equal } from "./utils/equal";
 
-export class State<T> implements BaseClass {
+export class State<T = any> implements BaseClass {
   private uuid: string;
   private updateCallbacks: ((value: T, preValue: T) => void)[];
+  prefix?: (value: any) => string;
 
   _name = "State";
 
@@ -15,6 +16,10 @@ export class State<T> implements BaseClass {
 
   onUpdate(callback: (value: T, preValue: T) => void) {
     this.updateCallbacks.push(callback);
+  }
+
+  setPrefixString(func: (value: any) => string) {
+    this.prefix = func;
   }
 
   set(value: T) {
@@ -31,5 +36,12 @@ export class State<T> implements BaseClass {
 
   get(): T {
     return this._value;
+  }
+
+  getString(): string {
+    if (this.prefix) {
+      return this.prefix(this._value);
+    }
+    return "" + this._value;
   }
 }
