@@ -17,7 +17,6 @@ import { GlobalStyle } from '../GlobalStyle/GlobalStyle'
 type MapStateValues<T extends State<any>[]> = {
   [K in keyof T]: T[K]['value']
 }
-type QueryAll = `queryAll:${string}`
 
 // create element
 export function $<T extends keyof ITagMap>(
@@ -37,12 +36,6 @@ export function $<T extends keyof ITagMap>(
   b?: string | State<string> | StateTemplate<string>,
   c?: undefined
 ): Template<ITagMap[T]>
-
-export function $(
-  a: Query,
-  b?: string | State<string> | StateTemplate<string>,
-  c?: undefined
-): Template
 
 //
 
@@ -172,7 +165,7 @@ $.listen = <T extends State<any>[]>(
 ): void => {
   ListenUpdate(name, b, a)
 }
-
+type QueryAll = `queryAll:${string}`
 $.queryAll = (a: QueryAll): Template[] => {
   const templates: Template[] = []
   const elements = document.querySelectorAll(a.replace('queryAll:', '').replace(/ /g, ''))
