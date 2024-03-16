@@ -18,7 +18,6 @@ type MapStateValues<T extends State<any>[]> = {
   [K in keyof T]: T[K]['value']
 }
 
-// create element
 export function $<T extends keyof ITagMap>(
   a: T,
   b?: ICreateConfig,
@@ -36,8 +35,6 @@ export function $<T extends keyof ITagMap>(
   b?: string | State<string> | StateTemplate<string>,
   c?: undefined
 ): Template<ITagMap[T]>
-
-//
 
 export function $<T extends State<any>[]>(
   a: T,
@@ -107,6 +104,56 @@ export function create(a: any, b: any, c: any): any {
   }
   return undefined
 }
+
+function createSvg<T extends keyof ITagMap>(
+  a: T,
+  b?: ICreateConfig,
+  c?: TemplateData[]
+): Template<ITagMap[T]>
+
+function createSvg<T extends keyof ITagMap>(
+  a: T,
+  b?: TemplateData[],
+  c?: undefined
+): Template<ITagMap[T]>
+
+function createSvg<T extends keyof ITagMap>(
+  a: T,
+  b?: string | State<string> | StateTemplate<string>,
+  c?: undefined
+): Template<ITagMap[T]>
+
+function createSvg<T extends State<any>[]>(
+  a: T,
+  b?: (...data: MapStateValues<T>) => Template | Component | undefined,
+  c?: undefined
+): DynamicTemplate
+
+function createSvg(a: any, b: any, c: any): any {
+  if (Array.isArray(a)) {
+    return new DynamicTemplate(a, b)
+  }
+  if (typeof a === 'string') {
+    if (Array.isArray(b)) {
+      return Template.create({ tag: a as keyof ITagMap, childs: b, svg: true })
+    }
+    if (typeof b == 'object') {
+      if (Array.isArray(c)) {
+        return Template.create({ tag: a as keyof ITagMap, ...b, childs: c, svg: true })
+      }
+      if (c === undefined) {
+        return Template.create({ tag: a as keyof ITagMap, ...b, svg: true })
+      }
+    }
+    if (typeof b == 'string') {
+      return Template.create({ tag: a as keyof ITagMap, innerHTML: b, svg: true })
+    }
+    return Template.create({ tag: a as keyof ITagMap, svg: true })
+  }
+  return undefined
+}
+
+$.svg = createSvg
 
 function createState<T>(value: T, data?: undefined): State<T>
 function createState(value: number, data?: ISpringConfig): SpringStateValue
